@@ -73,59 +73,53 @@ for i in range(4,len(data)):
 			shells[3] = a3
 			
 		#Loopen über alle isospins und spins
-		for k in range(T_min,T_max+1):
-			for l in range(J_min,J_max+1):
+		if (J_max - J_min) <= 5:
+			for k in range(T_min,T_max+1):
+				for l in range(J_min,J_max+1):
 				
 				#Falls nur 6 Einträge da sind, ist nur eine Zeile an TBME da und nichts ist zu beachten
-				if (J_max - J_min) <= 5:
+					#if (J_max - J_min) <= 5:
 					
-					if data[i+k+1][l-J_min] >= 0:
+					if data[i+k+1][l-J_min] > 0:
 						f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "    " + str(l) + "  " + str(k) + "    "  + str("%.4f") % (data[i+k+1][l-J_min]) )
+						f.write("\n")
 					elif data[i+k+1][l-J_min] < 0:
 					
 						f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "    " + str(l) + "  " + str(k) + "   "  + str("%.4f") % (data[i+k+1][l-J_min]) )
-					f.write("\n")
+						f.write("\n")
 					
 				#Falls es mehr als 6 Einträge sind, gibt es einen Zeilenumbruch, s.d. aufgepasst werden muss:
 				#2*T wird für den Index der Einträge verwendet, sowie erst +1 dann +2 in data[i+k+1][l-J_min]
-				elif (J_max - J_min) > 5:
-					
-					for l1 in range(J_min,J_min+6):
+		elif (J_max - J_min) > 5:
+			for k in range(T_min,T_max+1):	
+				for l1 in range(J_min,J_min+6):
 						
-						if data[i+2*k+1][l1-J_min] >= 0:
-							f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "    " + str(l1) + "  " + str(k) + "    "  + str("%.4f") % (data[i+2*k+1][l1-J_min]) )
-						elif data[i+2*k+1][l1-J_min] < 0:
-							f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "    " + str(l1) + "  " + str(k) + "   "  + str("%.4f") % (data[i+2*k+1][l1-J_min]) )
+					if data[i+2*k+1][l1-J_min] > 0:
+						f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "    " + str(l1) + "  " + str(k) + "    "  + str("%.4f") % (data[i+2*k+1][l1-J_min]) )
 						f.write("\n")
-					for l2 in range(J_min+6,J_max+1):
+					elif data[i+2*k+1][l1-J_min] < 0:
+						f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "    " + str(l1) + "  " + str(k) + "   "  + str("%.4f") % (data[i+2*k+1][l1-J_min]) )
+						f.write("\n")
+				for l2 in range(J_min+6,J_max+1):
 						
 						#Falls J > 10 muss J ein Zeichen nach links verschoben werden
-						if l2 < 10:
-						
-							if data[i+2*k+2][l2-(J_min+6)] >= 0:
-								f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "    " + str(l2) + "  " + str(k) + "    "  + str("%.4f") % (data[i+2*k+2][l2-(J_min+6)]) )
-							elif data[i+2*k+2][l2-(J_min+6)] < 0:
-								f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "    " + str(l2) + "  " + str(k) + "   "  + str("%.4f") % (data[i+2*k+2][l2-(J_min+6)]) )
+					if l2 < 10:
+					
+						if data[i+2*k+2][l2-(J_min+6)] > 0:
+							f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "    " + str(l2) + "  " + str(k) + "    "  + str("%.4f") % (data[i+2*k+2][l2-(J_min+6)]) )
+							f.write("\n")
+						elif data[i+2*k+2][l2-(J_min+6)] < 0:
+							f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "    " + str(l2) + "  " + str(k) + "   "  + str("%.4f") % (data[i+2*k+2][l2-(J_min+6)]) )
 							f.write("\n")
 							
 							
-						elif l2 >= 10:
-							if data[i+2*k+2][l2-(J_min+6)] >= 0:
-								f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "   " + str(l2) + "  " + str(k) + "    "  + str("%.4f") % (data[i+2*k+2][l2-(J_min+6)]) )
-							elif data[i+2*k+2][l2-(J_min+6)] < 0:
-								f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "   " + str(l2) + "  " + str(k) + "   "  + str("%.4f") % (data[i+2*k+2][l2-(J_min+6)]) )
+					elif l2 >= 10:
+						if data[i+2*k+2][l2-(J_min+6)] > 0:
+							f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "   " + str(l2) + "  " + str(k) + "    "  + str("%.4f") % (data[i+2*k+2][l2-(J_min+6)]) )
+							f.write("\n")
+						elif data[i+2*k+2][l2-(J_min+6)] < 0:
+							f.write("  " + str(shells[0]) + "  " + str(shells[1]) + "  " + str(shells[2]) + "  " + str(shells[3]) + "   " + str(l2) + "  " + str(k) + "   "  + str("%.4f") % (data[i+2*k+2][l2-(J_min+6)]) )
 							f.write("\n")							
 					
 f.close()
-
-#Nullelemente rausschmeißen
-
-#int_file = np.loadtxt("%s_m.int" % interaction_new, skiprows = 2)
-#
-#for i in range(len(int_file[0])):
-#	if int_file[i][6] == 0.:
-#		np.delete(int_file, i, 0)
-#print(int_file)
-#print(len(int_file[:][0]))
-
 
