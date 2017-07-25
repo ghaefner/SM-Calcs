@@ -39,7 +39,7 @@ for i in range(len(data[1])-2):
 	sps[0].append(data[1][i+2])
 	sps[1].append(data[2][i]+0.0001)
 
-print(sps)
+#print(sps)
 	
 f.write("+" + str(N_tbme))	
 for i in range(len(sps[1])):
