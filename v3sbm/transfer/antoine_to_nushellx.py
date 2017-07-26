@@ -1,7 +1,7 @@
 import numpy as np
 
 interaction = "v3sb90_12_new"
-interaction_new = "v3sb90"
+interaction_new = "v3sb"
 
 f = open("%s_m.int" % interaction_new ,"w")
 f.write("! USDB Interaction copied from ANTOINE")
