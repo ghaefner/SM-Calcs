@@ -18,14 +18,19 @@ for i in range(len(state[0])):
 	b = int(state[1][i])
 	c = int(state[2][i])
 	d = int(state[3][i])
-	if (a == b and c == d):
+	T = int(state[5][i])
+	print("Isospin:  T = " + str(T))
+	if T == 1:
 		continue
-	elif (a == b or c == d):
-		#print("aa|bc - ab | cc :" + str(a) + "  " + str(b) + "  " + str(c) + "  " + str(d) +  "    " + str(state[6][i]))
-		state[6][i] = state[6][i] * np.sqrt(2)
-	elif (a != b and c != d):
-		#print("ab|cd - ab | cd :" + str(a) + "  " + str(b) + "  " + str(c) + "  " + str(d) + "    " + str(state[6][i]))
-		state[6][i] = state[6][i] * 2
+	if T == 0:
+		if (a == b and c == d):
+			state[6][i] = state[6][i] * 1
+		elif (a == b or c == d):
+			#print("aa|bc - ab | cc :" + str(a) + "  " + str(b) + "  " + str(c) + "  " + str(d) +  "    " + str(state[6][i]))
+			state[6][i] = state[6][i] * np.sqrt(2)
+		elif (a != b and c != d):
+			#print("ab|cd - ab | cd :" + str(a) + "  " + str(b) + "  " + str(c) + "  " + str(d) + "    " + str(state[6][i]))
+			state[6][i] = state[6][i] * 2
 	
 
 f = open("%s_pn.int" % interaction_new,"w")
